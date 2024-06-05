@@ -1,14 +1,39 @@
-# uncompyle6 version 3.9.1
-# Python bytecode version base 2.7 (62211)
-# Decompiled from: Python 3.11.4 (tags/v3.11.4:d2340ef, Jun  7 2023, 05:45:37) [MSC v.1934 64 bit (AMD64)]
-# Embedded file name: getJason.py
-# Compiled at: 2022-06-14 16:15:55
 import json, sys
-jsonfile = sys.argv[1]
-jsonkey = sys.argv[2]
-with open(jsonfile, 'r') as myfile:
-    data = myfile.read()
-obj = json.loads(data)
-print str(obj[jsonkey])
+def print_help():
+    help_message = """
+    Extractor de token para acceso API Servicios Banco XXX (versión 1.0)
+    
+    Uso:
+        getJason.py <path archivo JSON> [clave]
+    
+    Ejemplo:
+        python getJason.py ./sitedata.json token1
+    
+    Si no se especifica una clave, se usará "token1" por defecto.
+    """
+    print(help_message)
 
-# okay decompiling getJason.pyc
+def get_token_from_json(json_path, key='token1'):
+    try:
+        with open(json_path, 'r') as file:
+            data = json.load(file)
+            if key in data:
+                print(f"{data[key]}")
+            else:
+                print(f"Error: La clave ingresada no fue encontrada en el archivo JSON.")
+    except FileNotFoundError:
+        print(f"Error: El archivo no se encuentra.")
+    except json.JSONDecodeError:
+        print(f"Error: El archivo no es un JSON válido.")
+    except Exception as e:
+        print(f"Error: {str(e)}")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print_help()
+    elif sys.argv[1] == '-h':
+        print_help()
+    else:
+        json_path = sys.argv[1]
+        key = sys.argv[2] if len(sys.argv) > 2 else 'token1'
+        get_token_from_json(json_path, key)
