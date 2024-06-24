@@ -1,0 +1,20 @@
+{
+        "bancos": {
+                "Patagonia": {
+                "nombre": "Patagonia",
+                "saldo": 1000,
+                "token": "token1"
+                },
+                "BNA": {
+                "nombre": "BNA",
+                "saldo": 2000,
+                "token": "token2"
+                },
+                "HSBC": {
+                "nombre": "HSBC",
+                "saldo": 2000,
+                "token": "token3"
+                }
+        }
+        }
+        
